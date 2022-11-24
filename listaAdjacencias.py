@@ -24,7 +24,7 @@ class Grafo:
               self.adiciona_aresta(int(valores[0]), int(valores[1]))
             v += 1
             
-        self.numEdges(edges)
+        #self.numEdges(edges)
             
     def adiciona_aresta(self, u, v):
         # pensando em grafo não direcionado sem peso nas arestas
@@ -38,12 +38,21 @@ class Grafo:
                 print(f'{j}  ->', end='  ')
             print('')
 
-    #def numVertex():
   
-    def numEdges(numCont, edges):
-        print('Numero de vertices contados: ', numCont)
+    def numEdges(edges):
         print('Numero de vertices dados: ', edges)
         return edges
+      
+    def numVertex():
+      cont = 0
+      for i in range(self.vertices):
+        for j in self.grafo[i]:
+          if j>self.vertices[i]:
+            cont+=1
+            
+        print("Nº de Arestas de 1 vertice: ", cont)
+      print("Nº total de Arestas: ", cont)
+      return cont
 
     def minDegree(self):
         min = float('inf')
@@ -96,3 +105,4 @@ g.loadData(file, 1397510)
 
 g.mostra_lista()
 g.numEdges(edges)
+g.numVertex()
