@@ -1,4 +1,4 @@
-import listaAdjacencias as la
+import Grafo as la
 
 def readFile(nome_arquivo):
   with open(nome_arquivo,'r') as arquivo:

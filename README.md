@@ -3,7 +3,7 @@ Trabalho da Disicplina Grafos e Algoritmos Computacionais
 
 ## Objetivo
 
-Implementar uma biblioteca em Python capaz de processar dados na forma de grafos não direcionados. A biblioteca deve representar o grafo internamente como uma Lista de Adjacência, ser capaz de ler os dados de um grafo a partir de um arquivo texto e oferecer um conjunto de funções capaz de processar o grafo e extrair informações. Para testar a biblioteca, a mesma será submetida ao processamento de um caso de uso descrito neste documento.
+Implementar uma biblioteca em Python capaz de processar dados na forma de **grafos não direcionados**. A biblioteca deve representar o grafo internamente **como uma Lista de Adjacência**, ser capaz de ler os dados de um grafo a partir de um arquivo texto e oferecer um conjunto de funções capaz de processar o grafo e extrair informações. Para testar a biblioteca, a mesma será submetida ao processamento de um caso de uso descrito neste documento.
 
 ## Funções Básicas da biblioteca: 
 
