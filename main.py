@@ -1,41 +1,17 @@
-<<<<<<< HEAD
-import Grafo as la
-
-def readFile(nome_arquivo):
-  with open(nome_arquivo,'r') as arquivo:
-    for linha in arquivo:
-        print(linha)
-=======
 import listaAdjacencias as la
 #t = la.Grafo
->>>>>>> c4dc484f5d87435279a58d17fdfeab2954cdf87f
 
 file = 'dblp.txt'
 g = la.Grafo #ver numero de linhas
 
-g.loadData(file, 1397510, ' ')
+g.loadData(file, 1397510)
 
-#def loadData(nome_arquivo, vertices, separador):
-#  a=1
-#  
-#  with open(nome_arquivo,'r') as arquivo:
-#    for linha in arquivo:
-#        print(linha)
-#        t.adiciona_aresta(linha, a, linha.length)
-#        a += 1
-      
-#file = 'dblp.txt'
-#readFile(file)
-
-
-
-#readFile('dblp.txt')
-
-#nome_arquivo = sys.argv[1]
-#arquivo = open(nome_arquivo)
-#linhas = arquivo.readlines()
-
-#for linha in linhas:
-#  print(linha)
-
-  #return 1
+print(f"Número de pesquisadores: {g.numEdges()}")
+print(f"Número de colaborações: {g.numVertex()}")
+print("Id do pesquisador que mais colaborou e quantas foram as colaborações:")
+col_pesq = g.maxDegree()
+print(f"O id do pesquisador que mais colaborou é ID:{col_pesq[1]} e ele teve {col_pesq[0]} colaborações.")
+print("Menor colaboração:")
+print(f"A menor quantidade de colaboraçoes de um pesquisador foi {g.minDegree()}")
+print("Número de subredes de colaboração:")
+print(f"A quantidade de subredes de colaboração foram: {g.components()} subredes")

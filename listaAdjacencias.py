@@ -45,6 +45,45 @@ class Grafo:
         print('Numero de vertices dados: ', edges)
         return edges
 
+    def minDegree(self):
+        min = float('inf')
+        for i in self.grafo:
+            if (len(i) < min):
+                min = len(i)
+        return min
+
+    def maxDegree(self):
+        max = 0
+        maxEdge = 0
+        for i in self.grafo:
+            if (len(i) > max):
+                max = len(i)
+                maxEdge = i+1
+        return [max, maxEdge]
+
+    def components(self):
+        index = 0
+        conected_components_quantity = 1
+
+        conected_components_array = self.aux_components(index)
+
+        for i in range(len(self.grafo)):
+            if i+1 not in conected_components_array:
+                conected_components_array + self.aux_components(i)
+                conected_components_quantity+=1
+        
+        return conected_components_quantity
+                
+
+    def aux_components(self, index=0, markedVertices = []):
+        markedVertices.append(index+1)
+
+        for adjOfVertice in self.grafo[index]:
+            if adjOfVertice not in markedVertices:
+                self.aux_components(adjOfVertice-1, markedVertices)
+        
+        return markedVertices
+
 file = 'dblp.txt'
 g = Grafo(1397510) #ver numero de linhas
 
