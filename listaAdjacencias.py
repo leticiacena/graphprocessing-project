@@ -1,65 +1,48 @@
 class Grafo:
 
-    #def graph(self, vertices):
-    edges = 0
+    def __init__(self): # Função de criar um novo grafo vazio - Graph - Escolhemos o metódo de iniciar a classe para representá-la.
+        self.grafo = []
 
-    def __init__(self, vertices):
-        #graph(self, vertices)
-        self.vertices = vertices
-        self.grafo = [[] for i in range(self.vertices)]
-
-    def loadData(self, nome_arquivo, vertices):
-        v=0
+    def Ler_arquivo(self, nome_arquivo): # Função de loadData para carregar um grafo a partir de um arquivo.
+        contador = 0
   
         with open(nome_arquivo,'r') as arquivo:
           for linha in arquivo:
-            if v==0:
-              edges = linha #recebendo o número de vértices da primeira linha
+            if contador ==0:
+              self.grafo = [[] for vertice in range(int(linha))]
+              contador +=1
             else:   
-              #print(linha)
-             
               valores = linha.split()
-              #print("********", valores)
-            #contar a+= numDeArestas a partir do length de valores
-              self.adiciona_aresta(int(valores[0]), int(valores[1]))
-            v += 1
+              self.adiciona_aresta(self, int(valores[0]), int(valores[1]))
             
-        #self.numEdges(edges)
-            
-    def adiciona_aresta(self, u, v):
-        # pensando em grafo não direcionado sem peso nas arestas
-        self.grafo[v-1].append(u)
-        self.grafo[u-1].append(v)
+    def adiciona_aresta(self, vertice1, vertice2): # Função auxiliar para adicionar arestas na lista de adjacência.
+        self.grafo[vertice2-1].append(vertice1)
+        self.grafo[vertice1-1].append(vertice2)
 
-    def mostra_lista(self):
-        for i in range(self.vertices):
-            print(f'{i+1}:', end='  ')
-            for j in self.grafo[i]:
-                print(f'{j}  ->', end='  ')
+    def mostra_lista(self): # Função que mostra a estrutura de lista de adjacência do grafo.
+        for vertice in range(1, self.quantidade_vertice(self)+1):
+            print(f'{vertice}:', end='  ')
+            for vertice_adjacente in self.grafo[vertice]:
+                print(f'{vertice_adjacente}  ->', end='  ')
             print('')
-
   
-    def numEdges(edges):
-        print('Numero de vertices dados: ', edges)
-        return edges
+    def quantidade_vertice(self): # Função 
+        return len(self.grafo)
       
-    def numVertex():
-      cont = 0
-      for i in range(self.vertices):
-        for j in self.grafo[i]:
-          if j>self.vertices[i]:
-            cont+=1
-            
-        print("Nº de Arestas de 1 vertice: ", cont)
-      print("Nº total de Arestas: ", cont)
-      return cont
+    def quantidade_aresta(self):
+      contador = 0
+      for vertice in range(1, self.quantidade_vertice(self)+1):
+        for vertice_adjacente in self.grafo[vertice-1]:
+          if vertice_adjacente >= vertice:
+            contador+=1            
+      return contador
 
-    def minDegree(self):
-        min = float('inf')
-        for i in self.grafo:
-            if (len(i) < min):
-                min = len(i)
-        return min
+    def grau_minimo(self):
+        minimo = float('inf')
+        for vertice in self.grafo:
+            if (len(vertice) < minimo):
+                minimo = len(vertice)
+        return minimo
 
     def maxDegree(self):
         max = 0
@@ -67,42 +50,36 @@ class Grafo:
         for i in self.grafo:
             if (len(i) > max):
                 max = len(i)
-                maxEdge = i+1
+                maxEdge = self.grafo.index(i)+1
         return [max, maxEdge]
 
     def components(self):
         index = 0
         conected_components_quantity = 1
 
-        conected_components_array = self.aux_components(index)
+        conected_components_array = self.aux_components(self, index)
 
         for i in range(len(self.grafo)):
             if i+1 not in conected_components_array:
-                conected_components_array + self.aux_components(i)
+                conected_components_array + self.aux_components(self,i)
                 conected_components_quantity+=1
         
+        print(conected_components_quantity)
         return conected_components_quantity
                 
 
     def aux_components(self, index=0, markedVertices = []):
-        markedVertices.append(index+1)
+        markedVertices.append(index)
+        pilha = [index]
 
-        for adjOfVertice in self.grafo[index]:
-            if adjOfVertice not in markedVertices:
-                self.aux_components(adjOfVertice-1, markedVertices)
-        
+        while pilha:
+            if pilha[0] == index:
+                vertice = pilha.pop()
+            else:
+                vertice = pilha.pop() - 1
+            for adjacente in self.grafo[vertice]:
+                if adjacente not in markedVertices:
+                    markedVertices.append(adjacente)
+                    pilha.append(adjacente)
+            
         return markedVertices
-
-file = 'dblp.txt'
-g = Grafo(1397510) #ver numero de linhas
-
-g.loadData(file, 1397510)
-
-#g.adiciona_aresta(1,2) #apenas testes, deve chamar cada linha do arquivo e inserir aqui
-#g.adiciona_aresta(1,3)
-#g.adiciona_aresta(1,4)
-#g.adiciona_aresta(2,3)
-
-g.mostra_lista()
-g.numEdges(edges)
-g.numVertex()
