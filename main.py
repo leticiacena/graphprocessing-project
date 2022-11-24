@@ -1,14 +1,24 @@
 import listaAdjacencias as la
-
-def readFile(nome_arquivo):
-  with open(nome_arquivo,'r') as arquivo:
-    for linha in arquivo:
-        print(linha)
+#t = la.Grafo
 
 file = 'dblp.txt'
+g = la.Grafo #ver numero de linhas
+
+g.loadData(file, 1397510, ' ')
+
+#def loadData(nome_arquivo, vertices, separador):
+#  a=1
+#  
+#  with open(nome_arquivo,'r') as arquivo:
+#    for linha in arquivo:
+#        print(linha)
+#        t.adiciona_aresta(linha, a, linha.length)
+#        a += 1
+      
+#file = 'dblp.txt'
 #readFile(file)
 
-t = la.Grafo
+
 
 #readFile('dblp.txt')
 
