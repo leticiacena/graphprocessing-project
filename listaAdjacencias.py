@@ -33,9 +33,11 @@ class Grafo:
       contador = 0
       for vertice in range(1, self.quantidade_vertice(self)+1):
         for vertice_adjacente in self.grafo[vertice-1]:
-          if vertice_adjacente >= vertice:
-            contador+=1            
-      return contador
+          if vertice_adjacente > vertice:
+            contador+=1
+          elif vertice_adjacente == vertice:
+            contador+=0.5  
+      return int(contador)
 
     def grau_minimo(self):
         minimo = float('inf')
@@ -54,30 +56,26 @@ class Grafo:
         return [max, maxEdge]
 
     def components(self):
-        index = 0
         conected_components_quantity = 1
+        quantidade_vertice = self.quantidade_vertice(self)
 
-        conected_components_array = self.aux_components(self, index)
+        conected_components_array = self.aux_components(self)
 
-        for i in range(len(self.grafo)):
-            if i+1 not in conected_components_array:
-                conected_components_array + self.aux_components(self,i)
+        for index in range(quantidade_vertice):
+            if index + 1 not in conected_components_array:
+                conected_components_array + self.aux_components(self, index, conected_components_array)
                 conected_components_quantity+=1
         
-        print(conected_components_quantity)
         return conected_components_quantity
                 
 
     def aux_components(self, index=0, markedVertices = []):
-        markedVertices.append(index)
-        pilha = [index]
+        markedVertices.append(index+1)
+        pilha = [index+1]
 
         while pilha:
-            if pilha[0] == index:
-                vertice = pilha.pop()
-            else:
-                vertice = pilha.pop() - 1
-            for adjacente in self.grafo[vertice]:
+            vertice = pilha.pop()
+            for adjacente in self.grafo[vertice-1]:
                 if adjacente not in markedVertices:
                     markedVertices.append(adjacente)
                     pilha.append(adjacente)
